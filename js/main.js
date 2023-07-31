@@ -1,112 +1,20 @@
-//Declaramos variables
-var operandoa;
-var operandob;
-var operacion;
-
-function init(){
-    //variables
-    var resultado = document.getElementById('resultado');
-    var reset = document.getElementById('btnreset');
-    var suma = document.getElementById('btnsuma');
-    var resta = document.getElementById('btnresta');
-    var multiplicacion = document.getElementById('btnmultiplicacion');
-    var division = document.getElementById('btndivision');
-    var igual = document.getElementById('btnigual');
-    var uno = document.getElementById('btnuno');
-    var dos = document.getElementById('btndos');
-    var tres = document.getElementById('btntres');
-    var cuatro = document.getElementById('btncuatro');
-    var cinco = document.getElementById('btncinco');
-    var seis = document.getElementById('btnseis');
-    var siete = document.getElementById('btnsiete');
-    var ocho = document.getElementById('btnocho');
-    var nueve = document.getElementById('btnnueve');
-    var cero = document.getElementById('btncero');
-    
-    uno.onclick = function(e){
-        resultado.textContent = resultado.textContent  + "1";
+const txtResultado = document.getElementById("txtResultado"); //me permitte seleccionar un elemento de mi doc por id
+const buttons = document.querySelectorAll("button"); //me regresa elemento de mi doc por buttons
+buttons.forEach(button => { // me permite dejar hacer varias acciones 
+  button.addEventListener("click", function() { //indica al navegador estar atento cuanto interantue usuario
+    const buttonValue = this.textContent; //se agrega texto de elemento
+    if (buttonValue == "C") { // me permite la tecla borrar numero
+      txtResultado.value = ""; // por medio de mi id txt de mi doc index
     }
-    dos.onclick = function(e){
-        resultado.textContent = resultado.textContent  + "2";
-    }
-    tres.onclick = function(e){
-        resultado.textContent = resultado.textContent  + "3";
-    }
-    cuatro.onclick = function(e){
-        resultado.textContent = resultado.textContent  + "4";
-    }
-    cinco.onclick = function(e){
-        resultado.textContent = resultado.textContent  + "5";
-    }
-    seis.onclick = function(e){
-        resultado.textContent = resultado.textContent  + "6";
-    }
-    siete.onclick = function(e){
-        resultado.textContent = resultado.textContent  + "7";
-    }
-    ocho.onclick = function(e){
-        resultado.textContent = resultado.textContent  + "8";
-    }
-    nueve.onclick = function(e){
-        resultado.textContent = resultado.textContent  + "9";
-    }
-    cero.onclick = function(e){
-        resultado.textContent = resultado.textContent  + "0";
-    }
-    reset.onclick = function(e){
-        resetear();
-    }
-    suma.onclick = function(e){
-        operandoa = resultado.textContent;
-        operacion = "+";
-        limpiar();
-    }
-    resta.onclick = function(e){
-        operandoa = resultado.textContent;
-        operacion = "-";
-        limpiar();
-    }
-    multiplicacion.onclick = function(e){
-        operandoa = resultado.textContent;
-        operacion = "*";
-        limpiar();
-    }
-    division.onclick = function(e){
-        operandoa = resultado.textContent;
-        operacion = "/";
-        limpiar();
-    }
-    igual.onclick = function(e){
-        operandob = resultado.textContent;
-        resolver();
-    }
-    function limpiar(){
-        resultado.textContent = "";
+    else if (buttonValue == "=") { // me permite reallizar el igual de operacion
+      try {
+        txtResultado.value = eval(txtResultado.value); // me permite verificar los que tengo por id
+      } catch (error) {
+        txtResultado.value = "Error"; 
       }
-      function resetear(){
-        resultado.textContent = "";
-        operandoa = 0;
-        operandob = 0;
-        operacion = "";
-      }
-      function resolver(){
-        var res = 0;
-        switch(operacion){
-          case "+":
-            res = parseFloat(operandoa) + parseFloat(operandob);
-            break;
-          case "-":
-              res = parseFloat(operandoa) - parseFloat(operandob);
-              break;
-          case "*":
-            res = parseFloat(operandoa) * parseFloat(operandob);
-            break;
-          case "/":
-            res = parseFloat(operandoa) / parseFloat(operandob);
-            break;
-        }
-        resetear();
-        resultado.textContent = res;
-      }
-
-  }
+    }
+    else {
+      txtResultado.value += buttonValue; // me permite sumar la variable de mi text con la del button
+    }
+  });
+});
